@@ -1,0 +1,10 @@
+mir.game.adas.BuildConfig
+mir.game.adas.R
+mir.game.adas.R$attr
+mir.game.adas.R$drawable
+mir.game.adas.R$id
+mir.game.adas.R$layout
+mir.game.adas.R$menu
+mir.game.adas.R$raw
+mir.game.adas.R$string
+mir.game.adas.R$styleable

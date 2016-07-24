@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">عدس</string>
+       
+    <string name="action_next">بعدی</string>
+    <string name="action_previous">قبلی</string>
+    <string name="action_back">بازگشت</string>
+    <string name="action_reload">به روز رسانی</string>
+    <string name="action_download">دانلود</string>
+    <string name="action_finish">خروج</string>
+    <string name="info_downloading">درحال دانلود فایل </string>
+    <string name="info_attention">توجه</string>
+    
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+
+    <string name="title_update_local">به روز آوری اطلاعات</string>
+    <string name="title_screen_animals">آشنایی با صدای حیوانات</string>
+    <string name="title_screen_animals_exam">آزمون حافظه</string>
+    <string name="ask_exit">برای خروج از برنامه مطمئن هستید؟</string>
+    
+</resources>
