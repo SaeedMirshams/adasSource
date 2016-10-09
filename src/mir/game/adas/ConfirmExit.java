@@ -34,7 +34,7 @@ public class ConfirmExit implements OnClickListener, Runnable {
         //
         LinearLayout customTitle = new LinearLayout(activity);
         customTitle.setOrientation(LinearLayout.HORIZONTAL);
-        mir.widget.TextView txtTitle = new mir.widget.TextView(activity);
+        TextView txtTitle = new TextView(activity);
         txtTitle.setText(R.string.info_attention);
 
         txtTitle.setWidth(Utility.DisplaySize().x);

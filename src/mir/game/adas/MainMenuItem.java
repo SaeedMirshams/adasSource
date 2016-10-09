@@ -13,12 +13,12 @@ public class MainMenuItem {
 
     private int title;
     private int imageResId;
-    private Runnable view;
+    private int action;
 
-    public MainMenuItem(int titleResId, int imageResId, Runnable r) {
-        this.view = r;
+    public MainMenuItem(int titleResId, int imageResId, int action) {
         this.title = titleResId;
         this.imageResId = imageResId;
+        this.action = action;
     }
 
     /**
@@ -49,7 +49,18 @@ public class MainMenuItem {
         this.imageResId = imageResId;
     }
 
-    public void run() {
-        view.run();
+    /**
+     * @return the action
+     */
+    public int getAction() {
+        return action;
     }
+
+    /**
+     * @param action the action to set
+     */
+    public void setAction(int action) {
+        this.action = action;
+    }
+
 }

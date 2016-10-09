@@ -7,17 +7,17 @@
 
       http://www.apache.org/licenses/LICENSE-2.0
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-  -->
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <!-- Dummy content. -->
     <LinearLayout
@@ -25,29 +25,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:gravity="center"
+    >
+        
 
-        <TextView android:id="@android:id/text1"
-            style="?android:textAppearanceLarge"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp" />
+        <TextView android:id="@+id/farsi_name"
+                  style="?android:textAppearanceLarge"
+                  android:textStyle="bold"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="16dp"
+                  android:text="Test"
+        />
 
-        <ImageView android:id="@+id/myImage"
-            android:lineSpacingMultiplier="1.2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/app_name"
-             />
-            <!--android:src="@drawable/turkey"*/-->
+        <ImageView android:id="@+id/animal_image"
+                   android:lineSpacingMultiplier="1.2"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:contentDescription="@string/app_name"
+        />
+        <!--android:src="@drawable/turkey"*/-->
 
-        <TextView android:id="@+id/myText"
-            style="?android:textAppearanceLarge"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp" />
+        <TextView android:id="@+id/english_name"
+                  style="?android:textAppearanceLarge"
+                  android:textStyle="bold"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="16dp"
+        />
 
     </LinearLayout>
 

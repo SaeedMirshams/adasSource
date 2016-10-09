@@ -77,10 +77,11 @@ public class OldMainActivity extends ListActivity {
         ReadZipFile();
         // Instantiate the list of samples.
         mSamples = new MainMenuItem[]{
-            new MainMenuItem(R.string.title_screen_animals, R.drawable.adas1, new AnimalPager(this)),
-            new MainMenuItem(R.string.title_screen_animals, R.drawable.adas2, new AnimalPager(this)),
-            new MainMenuItem(R.string.title_screen_animals, R.drawable.adas3, new AnimalPager(this)),
-            new MainMenuItem(R.string.title_screen_animals_exam, R.drawable.adas4, new AnimalPager(this)),};
+         //   new MainMenuItem(R.string.title_screen_animals, R.drawable.adas1, new AnimalPager(this)),
+          //  new MainMenuItem(R.string.title_screen_animals, R.drawable.adas2, new AnimalPager(this)),
+          // new MainMenuItem(R.string.title_screen_animals, R.drawable.adas3, new AnimalPager(this)),
+          //  new MainMenuItem(R.string.title_screen_animals_exam, R.drawable.adas4, new AnimalPager(this)),
+        };
 
         setListAdapter(new MenuArrayAdapter(this, mSamples));
     }

@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import mir.widget.TextView;
+import android.widget.TextView;
 
 /**
  *

@@ -11,6 +11,8 @@ import android.content.DialogInterface;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.view.Display;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -25,7 +27,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import mir.widget.Button;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -87,21 +88,18 @@ public class Utility {
         }
     }
 
-    static ZipFile zipFile = null;
-    static AnimalList animals = null;
-
     static AnimalList UseZipFile(String dataFilePath) {
-        if (zipFile != null) {
+        if (CommonPlace.zipFile != null) {
             try {
-                zipFile.close();
+                CommonPlace.zipFile.close();
             } catch (IOException ex) {
                 //throw ex;
             }
         }
         try {
-            zipFile = new ZipFile(dataFilePath);
-            animals = GenerateMetadata();
-            return animals;
+            CommonPlace.zipFile = new ZipFile(dataFilePath);
+            CommonPlace.animals = GenerateMetadata();
+            return CommonPlace.animals;
         } catch (Exception ex) {
         }
         return null;
@@ -132,15 +130,15 @@ public class Utility {
 
     private static InputStream InStreamforFile(String filename) throws IOException {
         InputStream is;
-        ZipEntry entry = zipFile.getEntry(filename);
-        is = zipFile.getInputStream(entry);
+        ZipEntry entry = CommonPlace.zipFile.getEntry(filename);
+        is = CommonPlace.zipFile.getInputStream(entry);
         return is;
     }
 
     static void releaseDataFile() {
-        if (zipFile != null) {
+        if (CommonPlace.zipFile != null) {
             try {
-                zipFile.close();
+                CommonPlace.zipFile.close();
             } catch (IOException ex) {
                 Logger.getLogger(Utility.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -157,7 +155,7 @@ public class Utility {
     static AnimalLayout NextAnimal() {
         Context context = MainActivity.activity;
         currentindex++;
-        if (currentindex >= animals.size()) {
+        if (currentindex >= CommonPlace.animals.size()) {
             currentindex = 0;
         }
         return loadAnimal(context);
@@ -167,7 +165,7 @@ public class Utility {
         Context context = MainActivity.activity;
         currentindex--;
         if (currentindex < 0) {
-            currentindex = animals.size() - 1;
+            currentindex = CommonPlace.animals.size() - 1;
         }
         return loadAnimal(context);
     }
@@ -178,8 +176,8 @@ public class Utility {
         AnimalLayout l = new AnimalLayout(context);
         try {
             l.setImage(CurrentImage());
-            l.englishTextView.setText(animals.get(currentindex).getName());
-            l.farsiTextView.setText(animals.get(currentindex).getFarsiName());
+            l.englishTextView.setText(CommonPlace.animals.get(currentindex).getName());
+            l.farsiTextView.setText(CommonPlace.animals.get(currentindex).getFarsiName());
             Loadmedia();
         } catch (Exception ex) {
             ex.toString();
@@ -191,7 +189,7 @@ public class Utility {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
 
-        InputStream is = InStreamforFile(animals.get(currentindex).getImage());
+        InputStream is = InStreamforFile(CommonPlace.animals.get(currentindex).getImage());
         int count;
         while ((count = is.read(buffer)) != -1) {
             baos.write(buffer, 0, count);
@@ -205,7 +203,7 @@ public class Utility {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
 
-        InputStream is = InStreamforFile(animals.get(currentindex).getSound());
+        InputStream is = InStreamforFile(CommonPlace.animals.get(currentindex).getSound());
         int count;
         while ((count = is.read(buffer)) != -1) {
             baos.write(buffer, 0, count);
@@ -262,4 +260,20 @@ public class Utility {
         return size;
     }
 
+    public static void applyFont(View view) {
+        if (view instanceof LinearLayout) {
+            LinearLayout layout = (LinearLayout) view;
+            for (int i = 0; i < layout.getChildCount(); i++) {
+                View v = layout.getChildAt(i);
+                if (v instanceof TextView) {
+                    TextView tv = (TextView) v;
+                    tv.setTypeface(CommonPlace.mainActivity.getDefaultFont());
+                    tv.setTextSize(CommonPlace.mainActivity.getTextViewTextSize());
+                } else if (v instanceof LinearLayout) {
+                    applyFont(v);
+                }
+            }
+        }
+
+    }
 }

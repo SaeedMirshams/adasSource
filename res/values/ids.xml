@@ -25,5 +25,10 @@
     -->
     <item type="id" name="action_next" />
     <item type="id" name="action_flip" />
+    
+    <item type="id" name="action_animal_pager" />
+    <item type="id" name="action_memory_test" />
+    <item type="id" name="action_exit" />
+    <item type="id" name="action_update_database" />
 
 </resources>

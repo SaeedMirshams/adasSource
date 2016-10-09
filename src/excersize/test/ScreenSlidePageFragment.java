@@ -24,7 +24,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import mir.widget.Button;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -86,15 +86,15 @@ public class ScreenSlidePageFragment extends Fragment implements View.OnClickLis
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_screen_slide_page, container, false);
         // Set the title view to show the page number.
-        ((TextView) rootView.findViewById(android.R.id.text1)).setText("AAA " + mPageNumber);
-        ((ImageView) rootView.findViewById(R.id.myImage)).setImageResource(R.drawable.adas1);
-        ((TextView) rootView.findViewById(R.id.myText)).setText("BBB " + mPageNumber);
-        LinearLayout lt = ((LinearLayout) rootView.findViewById(R.id.mainlayout));
-        Button btnSave = new Button(this.getContext());
-        btnSave.setText("Save File");
-        lt.addView(btnSave);
-        btnSave.setOnClickListener(this);
-//
+//        ((TextView) rootView.findViewById(android.R.id.text1)).setText("AAA " + mPageNumber);
+//        ((ImageView) rootView.findViewById(R.id.myImage)).setImageResource(R.drawable.adas1);
+//        ((TextView) rootView.findViewById(R.id.myText)).setText("BBB " + mPageNumber);
+//        LinearLayout lt = ((LinearLayout) rootView.findViewById(R.id.mainlayout));
+//        Button btnSave = new Button(this.getContext());
+//        btnSave.setText("Save File");
+//        lt.addView(btnSave);
+//        btnSave.setOnClickListener(this);
+////
         return rootView;
     }
 

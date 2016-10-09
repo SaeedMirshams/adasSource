@@ -5,12 +5,23 @@
  */
 package mir.game.adas;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ActionMenuView;
-import mir.widget.Button;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
@@ -18,65 +29,41 @@ import android.widget.ViewFlipper;
  *
  * @author 8062439
  */
-public class AnimalPager extends LinearLayout implements View.OnClickListener, Runnable {
+public class AnimalPager extends FragmentActivity {
 
-    MainActivity activity;
+    private PagerAdapter mPagerAdapter;
+    private ViewPager mPager;
 
-    public AnimalPager(Context context) {
-        super(context);
-        activity = (MainActivity) context;
-        InitializeFrames();
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread paramThread, Throwable paramThrowable) {
+                Log.e("Alert", "Lets See if it Works !!!" + paramThrowable.toString());
+            }
+        });
+
+        setContentView(R.layout.activity_screen_slide);
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager());
+
+        mPager.setAdapter(mPagerAdapter);
     }
-    Button btnPrevious;
-    Button btnNext;
-    Button btnBack;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        /*Menu optionsMenu = menu;
+         MenuInflater inflater = getMenuInflater();
+         inflater.inflate(R.menu.main_activity_actions, optionsMenu);
+
+         // menu.getItem(0).setVisible(false);*/
+        return super.onCreateOptionsMenu(menu);
+    }
 
     ViewFlipper flipper;
     AnimalLayout pics;
-
-    private void InitializeFrames() {
-        this.setOrientation(LinearLayout.VERTICAL);
-
-        btnPrevious = new Button(getContext());
-        btnPrevious.setText(R.string.action_previous);
-        this.addView(btnPrevious);
-        btnPrevious.setOnClickListener(this);
-
-        btnNext = new Button(getContext());
-        btnNext.setText(R.string.action_next);
-        btnNext.setOnClickListener(this);
-
-        this.addView(btnNext);
-
-        flipper = new ViewFlipper(this.getContext());
-        pics = new AnimalLayout(activity);
-        flipper.addView(pics);
-        pics.setImage(R.drawable.adas1);
-
-        flipper.setOnClickListener(this);
-        this.addView(flipper);
-
-        btnBack = new Button(getContext());
-        btnBack.setText(R.string.action_back);
-        btnBack.setOnClickListener(this);
-        this.addView(btnBack);
-
-        LayoutParams prm = new ActionMenuView.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        btnNext.setLayoutParams(prm);
-        btnPrevious.setLayoutParams(prm);
-        btnBack.setLayoutParams(prm);
-
-    }
-
-    public void onClick(View v) {
-        if (v == btnNext) {
-            PlayNext();
-        } else if (v == btnPrevious) {
-            PlayPrev();
-        } else if (v == btnBack) {
-            returntoMain();
-        }
-    }
 
     private void PlayNext() throws IllegalStateException {
         flipper.removeAllViews();
@@ -92,15 +79,32 @@ public class AnimalPager extends LinearLayout implements View.OnClickListener, R
         Utility.play();
     }
 
-    private void returntoMain() {
-        MainActivity.activity.returntoMain();
-    }
-
     public void run() {
         PlayNext();
         PlayPrev();
-        activity.setContentView(this);
+        finish();
 
+    }
+
+    class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            AnimalSlidePageFragment f = new AnimalSlidePageFragment();
+            Bundle bundle = new Bundle(2);
+            bundle.putInt("position", position);
+            f.setArguments(bundle);
+            return f;
+        }
+
+        @Override
+        public int getCount() {
+            return CommonPlace.animals.size();
+        }
     }
 
 }

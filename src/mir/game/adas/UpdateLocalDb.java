@@ -5,15 +5,18 @@
  */
 package mir.game.adas;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.view.View;
-import mir.widget.Button;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,64 +33,58 @@ import java.net.URL;
  *
  * @author 8062439
  */
-class UpdateLocalDb extends LinearLayout implements Runnable, View.OnClickListener {
+public class UpdateLocalDb extends Activity implements View.OnClickListener {
 
     Button btnDownload;
     Button btnReturn;
     Button btnReload;
 
-    public UpdateLocalDb(Context context) {
-        super(context);
-        this.setOrientation(LinearLayout.VERTICAL);
-        btnDownload = new Button(context);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState); //To change body of generated methods, choose Tools | Templates.
+        LinearLayout v = new LinearLayout(this);
+        v.setOrientation(LinearLayout.VERTICAL);
+        btnDownload = new Button(this);
         btnDownload.setText(R.string.action_download);
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         btnDownload.setLayoutParams(params);
-        this.addView(btnDownload);
+        v.addView(btnDownload);
 
-        btnReload = new Button(context);
+        btnReload = new Button(this);
         btnReload.setText(R.string.action_reload);
         btnReload.setLayoutParams(params);
-        this.addView(btnReload);
+        v.addView(btnReload);
 
-        btnReturn = new Button(context);
+        btnReturn = new Button(this);
         btnReturn.setText(R.string.action_back);
         btnReturn.setLayoutParams(params);
-        this.addView(btnReturn);
+        v.addView(btnReturn);
 
         btnReturn.setOnClickListener(this);
         btnDownload.setOnClickListener(this);
         btnReload.setOnClickListener(this);
 
-        try
-        {
-        Banner banner = new Banner(context);
-        banner.setLayoutParams(new LayoutParams(100,100));
-        banner.setBackgroundColor(Color.argb(255,200,200,255));
-        TextView tv=new TextView(context);
-        tv.setText("Here");
-        banner.addView(tv);
-        this.addView(banner);
-        }catch(Exception ex)
-        {
+        try {
+            Banner banner = new Banner(this);
+            banner.setLayoutParams(new LayoutParams(100, 100));
+            banner.setBackgroundColor(Color.argb(255, 200, 200, 255));
+            TextView tv = new TextView(this);
+            tv.setText("Here");
+            banner.addView(tv);
+            v.addView(banner);
+        } catch (Exception ex) {
             ex.toString();
         }
-    }
-
-    MainActivity activity;
-
-    public void run() {
-        activity = (MainActivity) this.getContext();
-        activity.setContentView(this);
+        setContentView(v);
     }
 
     public void onClick(View v) {
         if (v.equals(btnDownload)) {
             download();
-        } else if (v.equals(btnReturn)) {
-            activity.returntoMain();
         } else if (v.equals(btnReload)) {
-            activity.processDataFile();
+            CommonPlace.mainActivity.processDataFile();
+        } else if (v.equals(btnReturn)) {
+            finish();
         }
     }
 
@@ -96,13 +93,13 @@ class UpdateLocalDb extends LinearLayout implements Runnable, View.OnClickListen
 
     private void download() {
 // instantiate it within the onCreate method
-        mProgressDialog = new ProgressDialog(this.getContext());
+        mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage(getResources().getString(R.string.info_downloading));
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgressDialog.setCancelable(false);
         // execute this when the downloader must be fired
-        final DownloadTask downloadTask = new DownloadTask(this.getContext());
+        final DownloadTask downloadTask = new DownloadTask(this);
         downloadTask.execute("https://github.com/SaeedMirshams/adas/archive/master.zip");
 
         mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -146,10 +143,12 @@ class UpdateLocalDb extends LinearLayout implements Runnable, View.OnClickListen
 
                 // download the file
                 input = connection.getInputStream();
-                thefile = File.createTempFile("adas", ".tmp", Environment.getExternalStorageDirectory());
+                File outputDir = context.getCacheDir();
+//File outputFile = File.createTempFile("prefix", "extension", outputDir);
+                thefile = File.createTempFile("adas", ".tmp", outputDir);
                 output = new FileOutputStream(thefile);
 
-                byte data[] = new byte[4096];
+                byte data[] = new byte[1024*1024];
                 long total = 0;
                 int count;
                 while ((count = input.read(data)) != -1) {
@@ -168,6 +167,7 @@ class UpdateLocalDb extends LinearLayout implements Runnable, View.OnClickListen
                     }
                     output.write(data, 0, count);
                 }
+                output.close();
             } catch (Exception e) {
                 return e.toString();
             } finally {
@@ -189,8 +189,8 @@ class UpdateLocalDb extends LinearLayout implements Runnable, View.OnClickListen
                         Utility.deleteDataFile();
                     } catch (Exception ex) {
                     }
-                    if (thefile.renameTo(new File(activity.getDataFilePath()))) {
-                        activity.processDataFile();
+                    if (thefile.renameTo(new File(CommonPlace.mainActivity.getDataFilePath()))) {
+                        CommonPlace.mainActivity.processDataFile();
                     }
                 } else {
                 }

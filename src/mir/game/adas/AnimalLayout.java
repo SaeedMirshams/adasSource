@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.ActionMenuView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import mir.widget.TextView;
+import android.widget.TextView;
 
 /**
  *
