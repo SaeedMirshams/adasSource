@@ -9,10 +9,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -20,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,8 +56,8 @@ public class Utility {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert).show();
         TextView textView = (TextView) dialog.findViewById(android.R.id.message);
-        textView.setTypeface(context.getDefaultFont());
-        textView.setTextSize(context.getTextViewTextSize());
+        textView.setTypeface(getDefaultFont());
+        textView.setTextSize(getTextViewTextSize());
 
     }
 
@@ -260,15 +264,32 @@ public class Utility {
         return size;
     }
 
+    static Typeface defaultFont = null;
+
+    static Typeface getDefaultFont() {
+        if (defaultFont == null) {
+            defaultFont = Typeface.createFromAsset(CommonPlace.mainActivity.getAssets(), "fonts/yekan.ttf");
+        }
+        return defaultFont;
+
+    }
+
     public static void applyFont(View view) {
-        if (view instanceof LinearLayout) {
-            LinearLayout layout = (LinearLayout) view;
+        /*try {
+         Method m = view.getClass().getMethod("setTypeface", Typeface.class);
+         Typeface t = getDefaultFont();
+         m.invoke(view, t);
+         } catch (Exception ex) {
+
+         }*/
+        if (view instanceof ViewGroup) {
+            ViewGroup layout = (ViewGroup) view;
             for (int i = 0; i < layout.getChildCount(); i++) {
                 View v = layout.getChildAt(i);
                 if (v instanceof TextView) {
                     TextView tv = (TextView) v;
-                    tv.setTypeface(CommonPlace.mainActivity.getDefaultFont());
-                    tv.setTextSize(CommonPlace.mainActivity.getTextViewTextSize());
+                    tv.setTypeface(getDefaultFont());
+                    tv.setTextSize(getTextViewTextSize());
                 } else if (v instanceof LinearLayout) {
                     applyFont(v);
                 }
@@ -276,4 +297,13 @@ public class Utility {
         }
 
     }
+
+    static float getTextViewTextSize() {
+        return 20;
+    }
+
+    static float getButtonTextSize() {
+        return 25;
+    }
+
 }

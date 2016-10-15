@@ -51,7 +51,7 @@ public class MenuArrayAdapter extends ArrayAdapter<MainMenuItem> {
             textView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
             result.addView(textView);
-
+            Utility.applyFont(result);
             return result;
         } catch (Exception ex) {
             ex.toString();

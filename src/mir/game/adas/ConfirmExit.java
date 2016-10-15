@@ -54,16 +54,16 @@ public class ConfirmExit implements OnClickListener, Runnable {
                 .setIcon(android.R.drawable.ic_dialog_alert).setCustomTitle(customTitle).show();
 
         TextView textView = (TextView) dialog.findViewById(android.R.id.message);
-        textView.setTypeface(activity.getDefaultFont());
-        textView.setTextSize(activity.getTextViewTextSize());
+        textView.setTypeface(Utility.getDefaultFont());
+        textView.setTextSize(Utility.getTextViewTextSize());
 
         android.widget.Button btnPositive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        btnPositive.setTextSize(activity.getButtonTextSize());
-        btnPositive.setTypeface(activity.getDefaultFont());
+        btnPositive.setTextSize(Utility.getButtonTextSize());
+        btnPositive.setTypeface(Utility.getDefaultFont());
 
         android.widget.Button btnNegative = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-        btnNegative.setTextSize(activity.getButtonTextSize());
-        btnNegative.setTypeface(activity.getDefaultFont());
+        btnNegative.setTextSize(Utility.getButtonTextSize());
+        btnNegative.setTypeface(Utility.getDefaultFont());
 
     }
 

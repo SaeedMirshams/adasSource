@@ -43,12 +43,13 @@ public class AnimalPager extends FragmentActivity {
                 Log.e("Alert", "Lets See if it Works !!!" + paramThrowable.toString());
             }
         });
-
         setContentView(R.layout.activity_screen_slide);
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager());
 
         mPager.setAdapter(mPagerAdapter);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -84,6 +85,11 @@ public class AnimalPager extends FragmentActivity {
         PlayPrev();
         finish();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {

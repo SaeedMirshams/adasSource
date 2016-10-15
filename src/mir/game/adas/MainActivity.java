@@ -1,6 +1,8 @@
 package mir.game.adas;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -21,8 +23,6 @@ public class MainActivity extends ListActivity {
 
     private static MainMenuItem[] mSamples;
     static MainActivity activity;
-
-    private Typeface defaultFont;
 
     private InterstitialAdListener mAdListener = new InterstitialAdListener() {
         @Override
@@ -72,7 +72,6 @@ public class MainActivity extends ListActivity {
             //Adad.prepareInterstitialAd(mAdListener);
             //Adad.showInterstitialAd(this);
 
-            defaultFont = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
             activity = this;
             LayoutInflater mInflater;
             mInflater = LayoutInflater.from(this);
@@ -101,6 +100,11 @@ public class MainActivity extends ListActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        returntoMain();
+    }
+
+    @Override
     protected void onListItemClick(ListView listView, View view, int position, long id) {
         //if(mSamples[position])
         try {
@@ -118,8 +122,15 @@ public class MainActivity extends ListActivity {
                     startActivity(updateLocalDb);
                     break;
                 case R.id.action_exit:
-                    finish();
-                    System.exit(0);
+                    new AlertDialog.Builder(this)
+                            .setTitle("خروج").setMessage("برای خروج مطمئنید؟").setPositiveButton("بله", new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    System.exit(0);
+                                }
+                            }).setNegativeButton("خیر", null).create().show();
+
                     break;
             }
         } catch (Exception ex) {
@@ -162,17 +173,4 @@ public class MainActivity extends ListActivity {
 
         Utility.UseZipFile(getDataFilePath());
     }
-
-    public Typeface getDefaultFont() {
-        return defaultFont;
-    }
-
-    public float getButtonTextSize() {
-        return 25;
-    }
-
-    public float getTextViewTextSize() {
-        return 20;
-    }
-
 }

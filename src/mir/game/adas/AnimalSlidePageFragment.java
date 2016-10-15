@@ -103,7 +103,7 @@ public class AnimalSlidePageFragment extends Fragment {
             w = p.y;
         }
         int m = w / 6;
-        w *= (2.0 / 3.0);
+        w *= (7.0 / 12.0);
         im.getLayoutParams().height = w;
         im.getLayoutParams().width = w;
         //image.setLayoutParams(prm);

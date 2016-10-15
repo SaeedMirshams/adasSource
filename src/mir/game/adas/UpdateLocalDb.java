@@ -42,23 +42,13 @@ public class UpdateLocalDb extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); //To change body of generated methods, choose Tools | Templates.
-        LinearLayout v = new LinearLayout(this);
-        v.setOrientation(LinearLayout.VERTICAL);
-        btnDownload = new Button(this);
-        btnDownload.setText(R.string.action_download);
-        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        btnDownload.setLayoutParams(params);
-        v.addView(btnDownload);
+        setContentView(R.layout.activity_update_db);
 
-        btnReload = new Button(this);
-        btnReload.setText(R.string.action_reload);
-        btnReload.setLayoutParams(params);
-        v.addView(btnReload);
+        btnDownload = (Button) findViewById(R.id.btnDownload);
 
-        btnReturn = new Button(this);
-        btnReturn.setText(R.string.action_back);
-        btnReturn.setLayoutParams(params);
-        v.addView(btnReturn);
+        btnReload = (Button) findViewById(R.id.btnReload);
+
+        btnReturn = (Button) findViewById(R.id.btnReturn);
 
         btnReturn.setOnClickListener(this);
         btnDownload.setOnClickListener(this);
@@ -71,11 +61,13 @@ public class UpdateLocalDb extends Activity implements View.OnClickListener {
             TextView tv = new TextView(this);
             tv.setText("Here");
             banner.addView(tv);
-            v.addView(banner);
+//             addView(banner);
         } catch (Exception ex) {
             ex.toString();
         }
-        setContentView(v);
+        //Utility.applyFont();
+        
+        //setContentView(v);
     }
 
     public void onClick(View v) {
@@ -148,7 +140,7 @@ public class UpdateLocalDb extends Activity implements View.OnClickListener {
                 thefile = File.createTempFile("adas", ".tmp", outputDir);
                 output = new FileOutputStream(thefile);
 
-                byte data[] = new byte[1024*1024];
+                byte data[] = new byte[1024 * 1024];
                 long total = 0;
                 int count;
                 while ((count = input.read(data)) != -1) {
