@@ -7,8 +7,6 @@ package mir.game.adas;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentActivity;
@@ -16,13 +14,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ActionMenuView;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 /**
@@ -48,8 +40,14 @@ public class AnimalPager extends FragmentActivity {
         mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager());
 
         mPager.setAdapter(mPagerAdapter);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                Utility.play(position);
 
+            }
+        });
     }
 
     @Override
@@ -61,30 +59,6 @@ public class AnimalPager extends FragmentActivity {
 
          // menu.getItem(0).setVisible(false);*/
         return super.onCreateOptionsMenu(menu);
-    }
-
-    ViewFlipper flipper;
-    AnimalLayout pics;
-
-    private void PlayNext() throws IllegalStateException {
-        flipper.removeAllViews();
-        flipper.addView(Utility.NextAnimal());
-    }
-
-    private void PlayPrev() {
-        flipper.removeAllViews();
-        flipper.addView(Utility.PrevAnimal());
-    }
-
-    private void Play() {
-        Utility.play();
-    }
-
-    public void run() {
-        PlayNext();
-        PlayPrev();
-        finish();
-
     }
 
     @Override

@@ -6,12 +6,12 @@
 package mir.game.adas;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 /**
@@ -32,25 +32,15 @@ public class MenuArrayAdapter extends ArrayAdapter<MainMenuItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         try {
-            LinearLayout result = new LinearLayout(context);
-            result.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-            result.setPadding(5, 5, 5, 5);
-            result.setOrientation(LinearLayout.HORIZONTAL);
+            LayoutInflater infl = context.getLayoutInflater();
+            LinearLayout result = (LinearLayout) infl.inflate(R.layout.menu_item, null);
 
-            ImageView imageView = new ImageView(context);
-            int iconw = Utility.DisplaySize().x / 10;
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(iconw, iconw);
-            lp.setMargins(5, 3, 20, 2);
-            imageView.setLayoutParams(lp);
+            ImageView imageView = (ImageView) result.findViewById(R.id.imageView);
             imageView.setImageResource(values[position].getImageResId());
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            result.addView(imageView);
 
-            TextView textView = new TextView(context);
+            TextView textView = (TextView) result.findViewById(R.id.textView);
             textView.setText(values[position].getTitle());
-            textView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-            result.addView(textView);
             Utility.applyFont(result);
             return result;
         } catch (Exception ex) {

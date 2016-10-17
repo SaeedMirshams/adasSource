@@ -28,6 +28,7 @@ public class MainActivity extends ListActivity {
         @Override
         public void onAdLoaded() {
             Toast.makeText(getApplicationContext(), "Interstitial Ad loaded", Toast.LENGTH_SHORT).show();
+            showAdad();
         }
 
         @Override
@@ -37,6 +38,7 @@ public class MainActivity extends ListActivity {
 
         @Override
         public void onMessageReceive(JSONObject message) {
+            Toast.makeText(activity, message.toString(), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -59,6 +61,8 @@ public class MainActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Adad.initialize(getApplicationContext());
+        Adad.prepareInterstitialAd(mAdListener);
         CommonPlace.mainActivity = this;
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
@@ -68,9 +72,6 @@ public class MainActivity extends ListActivity {
         });
 
         try {
-            //Adad.initialize(getApplicationContext());
-            //Adad.prepareInterstitialAd(mAdListener);
-            //Adad.showInterstitialAd(this);
 
             activity = this;
             LayoutInflater mInflater;
@@ -86,6 +87,7 @@ public class MainActivity extends ListActivity {
                     //         new Sample(R.string.title_update_local, R.drawable.adas3, new AnimalPager(this)),
                     new MainMenuItem(R.string.title_update_local, R.drawable.adas3, R.id.action_update_database),
                     new MainMenuItem(R.string.title_screen_animals_exam, R.drawable.ic_launcher, R.id.action_memory_test),
+                    new MainMenuItem(R.string.action_next, R.drawable.ic_launcher, R.id.action_next),
                     new MainMenuItem(R.string.action_finish, R.drawable.adas3, R.id.action_exit),};
                 setListAdapter(new MenuArrayAdapter(this, mSamples));
             } catch (Exception ex) {
@@ -115,7 +117,12 @@ public class MainActivity extends ListActivity {
                     startActivity(animalpager);
                     break;
                 case R.id.action_memory_test:
-                    Toast.makeText(this, "Not Implemented", Toast.LENGTH_SHORT).show();
+                    Intent memoryTestActivity = new Intent(this, MemoryTestActivity.class);
+                    startActivity(memoryTestActivity);
+                    break;
+                case R.id.action_next:
+                    Intent advertise = new Intent(this, Advertise.class);
+                    startActivity(advertise);
                     break;
                 case R.id.action_update_database:
                     Intent updateLocalDb = new Intent(this, UpdateLocalDb.class);
@@ -173,4 +180,9 @@ public class MainActivity extends ListActivity {
 
         Utility.UseZipFile(getDataFilePath());
     }
+
+    void showAdad() {
+        Adad.showInterstitialAd(this);
+    }
+
 }

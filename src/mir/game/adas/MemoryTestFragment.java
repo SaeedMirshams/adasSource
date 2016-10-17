@@ -19,27 +19,19 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Point;
-import android.media.Image;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ActionMenuView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
-import static mir.game.adas.Utility.currentindex;
-import static mir.game.adas.Utility.mp;
 
 /**
  * A fragment representing a single step in a wizard. The fragment shows a dummy
@@ -49,9 +41,10 @@ import static mir.game.adas.Utility.mp;
  * This class is used by the {@link CardFlipActivity} and {@link
  * ScreenSlideActivity} samples.</p>
  */
-public class AnimalSlidePageFragment extends Fragment {
+public class MemoryTestFragment extends Fragment {
 
-    AnimalSlidePageFragment self;
+    int animalindex;
+    int[] optionsindex;
 
     /**
      * Factory method for this fragment class. Constructs a new fragment for the
@@ -66,8 +59,22 @@ public class AnimalSlidePageFragment extends Fragment {
      fragment.mReadingListDetail = detail;
      return fragment;
      }*/
-    public AnimalSlidePageFragment() {
-        self = this;
+    public MemoryTestFragment() {
+        Random r = new Random(System.currentTimeMillis());
+
+        int n = r.nextInt(CommonPlace.animals.size());
+        animalindex = n;
+        optionsindex = new int[4];
+        int tmp = r.nextInt(4);
+        for (int i = 0; i < 4; i++) {
+            if (tmp == i) {
+                optionsindex[i] = animalindex;
+            } else {
+                optionsindex[i] = r.nextInt(CommonPlace.animals.size());
+            }
+
+        }
+
     }
 
     @Override
@@ -81,43 +88,44 @@ public class AnimalSlidePageFragment extends Fragment {
         return super.getContext();
     }
     ViewGroup rootView = null;
-    Animal mAnimal;
-    int position;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        position = getArguments().getInt("position");
-        mAnimal = CommonPlace.animals.get(position);
+        //int position = getArguments().getInt("position");
+        Animal subjectAnimal = CommonPlace.animals.get(animalindex);
+
         rootView = (ViewGroup) inflater
-                .inflate(R.layout.fragment_screen_slide_page, container, false);
-        TextView t = (TextView) rootView.findViewById(R.id.farsi_name);
-        t.setText(mAnimal.getFarsiName());
+                .inflate(R.layout.memory_test_fragment, container, false);
+        TextView t = (TextView) rootView.findViewById(R.id.txt_name);
+        ImageView[] img = new ImageView[4];
+        img[0] = (ImageView) rootView.findViewById(R.id.img1);
+        img[1] = (ImageView) rootView.findViewById(R.id.img2);
+        img[2] = (ImageView) rootView.findViewById(R.id.img3);
+        img[3] = (ImageView) rootView.findViewById(R.id.img4);
 
-        t = (TextView) rootView.findViewById(R.id.english_name);
-        t.setText(mAnimal.getName());
-        ImageView im = (ImageView) rootView.findViewById(R.id.animal_image);
-
-        Point p = Utility.DisplaySize();
-        int w = p.x;
-        if (p.x > p.y) {
-            w = p.y;
+        int w = Utility.DisplaySize().x;
+        for (int i = 0; i < 4; i++) {
+            img[i].getLayoutParams().width = (w - 20) / 2;
+            img[i].getLayoutParams().height = (w - 20) * 2 / 5;
+            img[i].setScaleType(ImageView.ScaleType.FIT_XY);
+            img[i].setBackgroundResource(R.drawable.round_rect);
+            setimage(img[i], optionsindex[i]);
         }
-        int m = w / 6;
-        w *= (7.0 / 12.0);
-        im.getLayoutParams().height = w;
-        im.getLayoutParams().width = w;
-        //image.setLayoutParams(prm);
-        im.setScaleType(ImageView.ScaleType.FIT_XY);
-        im.setOnClickListener(new View.OnClickListener() {
+
+        t.setText(subjectAnimal.getFarsiName());
+        t.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Utility.play(position);
+                Utility.play(animalindex);
             }
-
         });
+        Utility.applyFont(rootView);
+        return rootView;
+    }
 
-        ZipEntry z = CommonPlace.zipFile.getEntry(mAnimal.getImage());
+    private void setimage(ImageView img, int index) {
+        ZipEntry z = CommonPlace.zipFile.getEntry(CommonPlace.animals.get(index).getImage());
         try {
             InputStream is = CommonPlace.zipFile.getInputStream(z);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -131,12 +139,11 @@ public class AnimalSlidePageFragment extends Fragment {
             byte[] bytes = baos.toByteArray();
 
             Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            im.setImageBitmap(bmp);
+            img.setImageBitmap(bmp);
 
         } catch (IOException ex) {
             Logger.getLogger(AnimalSlidePageFragment.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Utility.applyFont(rootView);
-        return rootView;
+
     }
 }

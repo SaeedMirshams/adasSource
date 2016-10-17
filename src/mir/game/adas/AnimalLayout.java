@@ -77,9 +77,6 @@ public class AnimalLayout extends LinearLayout implements View.OnClickListener {
     }
 
     public void onClick(View v) {
-        if (v == image) {
-            Utility.play();
-        }
     }
 
 }

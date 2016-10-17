@@ -18,5 +18,6 @@
     <string name="title_screen_animals">آشنایی با صدای حیوانات</string>
     <string name="title_screen_animals_exam">آزمون حافظه</string>
     <string name="ask_exit">برای خروج از برنامه مطمئن هستید؟</string>
+    <string name="nodesc"></string>
     
 </resources>

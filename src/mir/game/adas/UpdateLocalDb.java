@@ -12,14 +12,15 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.PowerManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+import ir.adad.client.AdView;
+import ir.adad.client.AdadActivity;
 import ir.adad.client.Banner;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,7 +43,10 @@ public class UpdateLocalDb extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); //To change body of generated methods, choose Tools | Templates.
-        setContentView(R.layout.activity_update_db);
+        LayoutInflater infl = getLayoutInflater();
+        ViewGroup l = (ViewGroup) infl.inflate(R.layout.activity_update_db, null);
+
+        setContentView(l);
 
         btnDownload = (Button) findViewById(R.id.btnDownload);
 
@@ -55,18 +59,17 @@ public class UpdateLocalDb extends Activity implements View.OnClickListener {
         btnReload.setOnClickListener(this);
 
         try {
+
             Banner banner = new Banner(this);
-            banner.setLayoutParams(new LayoutParams(100, 100));
+            banner.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 150));
             banner.setBackgroundColor(Color.argb(255, 200, 200, 255));
-            TextView tv = new TextView(this);
-            tv.setText("Here");
-            banner.addView(tv);
-//             addView(banner);
+            l.addView(banner);
+            
         } catch (Exception ex) {
             ex.toString();
         }
-        //Utility.applyFont();
-        
+        Utility.applyFont(l);
+
         //setContentView(v);
     }
 

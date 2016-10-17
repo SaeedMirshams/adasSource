@@ -242,14 +242,35 @@ public class Utility {
         }
     }
 
-    static void play() {
-        if (mp != null) {
-            try {
-                mp.stop();
-                mp.prepare();
-                mp.start();
-            } catch (Exception ex) {
+    static void play(int position) {
+        Animal mAnimal = CommonPlace.animals.get(position);
+        try {
+            ZipEntry ze = CommonPlace.zipFile.getEntry(mAnimal.getSound());
+            File tempMp3 = File.createTempFile("adas", ".mp3", MainActivity.activity.getCacheDir());
+            tempMp3.deleteOnExit();
+            FileOutputStream baos = new FileOutputStream(tempMp3);
+            InputStream is = CommonPlace.zipFile.getInputStream(ze);
+            byte[] buffer = new byte[1024];
+
+            int count;
+            while ((count = is.read(buffer)) != -1) {
+                baos.write(buffer, 0, count);
             }
+
+            baos.close();
+
+            if (mp != null) {
+                mp.stop();
+                mp.release();
+            }
+            mp = new MediaPlayer();
+
+            FileInputStream fis = new FileInputStream(tempMp3);
+            mp.setDataSource(fis.getFD());
+            mp.prepare();
+            mp.start();
+        } catch (IOException ex) {
+            Logger.getLogger(AnimalSlidePageFragment.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
