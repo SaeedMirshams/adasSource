@@ -8,9 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 public class MemoryTestActivity extends FragmentActivity {
@@ -18,11 +16,12 @@ public class MemoryTestActivity extends FragmentActivity {
     private PagerAdapter mPagerAdapter;
     private ViewPager mPager;
     View memoryView;
+    int score = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        CommonPlace.memoryTestActivity = this;
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread paramThread, Throwable paramThrowable) {
@@ -47,6 +46,16 @@ public class MemoryTestActivity extends FragmentActivity {
             getActionBar().setDisplayShowHomeEnabled(true);
         } catch (Exception ex) {
             Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void NextTest() {
+        int i = mPager.getCurrentItem() + 1;
+        if (i < mPagerAdapter.getCount()) {
+            mPager.setCurrentItem(i);
+        } else {
+            Toast.makeText(this, "امتیاز شما " + score, Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 

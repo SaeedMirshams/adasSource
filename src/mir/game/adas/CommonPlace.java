@@ -14,6 +14,7 @@ import java.util.zip.ZipFile;
 public class CommonPlace {
 
     static MainActivity mainActivity;
+    static MemoryTestActivity memoryTestActivity;
     static ZipFile zipFile = null;
     static AnimalList animals = null;
 

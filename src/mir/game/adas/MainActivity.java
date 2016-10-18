@@ -24,45 +24,9 @@ public class MainActivity extends ListActivity {
     private static MainMenuItem[] mSamples;
     static MainActivity activity;
 
-    private InterstitialAdListener mAdListener = new InterstitialAdListener() {
-        @Override
-        public void onAdLoaded() {
-            Toast.makeText(getApplicationContext(), "Interstitial Ad loaded", Toast.LENGTH_SHORT).show();
-            showAdad();
-        }
-
-        @Override
-        public void onAdFailedToLoad() {
-            Toast.makeText(getApplicationContext(), "Interstitial Ad failed to load", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onMessageReceive(JSONObject message) {
-            Toast.makeText(activity, message.toString(), Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        public void onRemoveAdsRequested() {
-            Toast.makeText(getApplicationContext(), "User requested to remove interstitial ads from app", Toast.LENGTH_SHORT).show();
-            //Move your user to shopping center of your app
-        }
-
-        @Override
-        public void onInterstitialAdDisplayed() {
-
-        }
-
-        @Override
-        public void onInterstitialClosed() {
-            Toast.makeText(getApplicationContext(), "Interstitial Ad closed", Toast.LENGTH_SHORT).show();
-        }
-    };
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Adad.initialize(getApplicationContext());
-        Adad.prepareInterstitialAd(mAdListener);
         CommonPlace.mainActivity = this;
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
@@ -85,9 +49,9 @@ public class MainActivity extends ListActivity {
                     new MainMenuItem(R.string.title_screen_animals, R.drawable.adas1, R.id.action_animal_pager),
                     //         new Sample(R.string.title_screen_animals_exam, R.drawable.adas2, new AnimalPager(this)),
                     //         new Sample(R.string.title_update_local, R.drawable.adas3, new AnimalPager(this)),
-                    new MainMenuItem(R.string.title_update_local, R.drawable.adas3, R.id.action_update_database),
                     new MainMenuItem(R.string.title_screen_animals_exam, R.drawable.ic_launcher, R.id.action_memory_test),
-                    new MainMenuItem(R.string.action_next, R.drawable.ic_launcher, R.id.action_next),
+                    new MainMenuItem(R.string.title_update_local, R.drawable.adas3, R.id.action_update_database),
+                    //new MainMenuItem(R.string.action_next, R.drawable.ic_launcher, R.id.action_next),
                     new MainMenuItem(R.string.action_finish, R.drawable.adas3, R.id.action_exit),};
                 setListAdapter(new MenuArrayAdapter(this, mSamples));
             } catch (Exception ex) {
@@ -179,10 +143,6 @@ public class MainActivity extends ListActivity {
         }
 
         Utility.UseZipFile(getDataFilePath());
-    }
-
-    void showAdad() {
-        Adad.showInterstitialAd(this);
     }
 
 }

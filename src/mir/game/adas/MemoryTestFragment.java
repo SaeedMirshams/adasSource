@@ -19,12 +19,16 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -111,6 +115,13 @@ public class MemoryTestFragment extends Fragment {
             img[i].setScaleType(ImageView.ScaleType.FIT_XY);
             img[i].setBackgroundResource(R.drawable.round_rect);
             setimage(img[i], optionsindex[i]);
+            img[i].setTag(optionsindex[i]);
+            img[i].setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    ShowToast(v);
+                }
+            });
         }
 
         t.setText(subjectAnimal.getFarsiName());
@@ -122,6 +133,28 @@ public class MemoryTestFragment extends Fragment {
         });
         Utility.applyFont(rootView);
         return rootView;
+    }
+
+    private void ShowToast(View v) {
+        ImageView iv = (ImageView) v;
+        int x = (Integer) v.getTag();
+        Utility.play(x);
+        if (x == animalindex) {
+            CommonPlace.memoryTestActivity.score += 2;
+            iv.setBackgroundColor(Color.rgb(200, 255, 200));
+            Handler handler1 = new Handler();
+
+            handler1.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    CommonPlace.memoryTestActivity.NextTest();
+                }
+            }, 120);
+        } else {
+            CommonPlace.memoryTestActivity.score--;
+            iv.setBackgroundColor(Color.rgb(255, 200, 200));
+        }
+
     }
 
     private void setimage(ImageView img, int index) {
@@ -142,7 +175,8 @@ public class MemoryTestFragment extends Fragment {
             img.setImageBitmap(bmp);
 
         } catch (IOException ex) {
-            Logger.getLogger(AnimalSlidePageFragment.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AnimalSlidePageFragment.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
     }
