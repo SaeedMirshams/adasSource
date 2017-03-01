@@ -1,0 +1,30 @@
+ Volume in drive E is Work
+ Volume Serial Number is 54ED-61B3
+
+ Directory of E:\AndroidProjects\adasSource\Adas
+
+11/13/2016  01:59 PM    <DIR>          .
+11/13/2016  01:59 PM    <DIR>          ..
+07/24/2016  03:05 PM               203 .gitignore
+08/10/2016  03:12 PM    <DIR>          .idea
+11/07/2016  02:55 PM             2,548 AndroidManifest.xml
+10/04/2016  03:15 PM               826 ant.properties
+07/04/2016  12:48 PM    <DIR>          assets
+11/13/2016  12:05 PM    <DIR>          bin
+07/12/2016  01:53 PM             4,008 build.xml
+11/07/2016  03:13 PM    <DIR>          gen
+06/08/2016  07:24 AM    <DIR>          Hard
+07/05/2016  12:42 PM    <DIR>          libs
+07/12/2016  01:53 PM               410 local.properties
+07/12/2016  01:52 PM    <DIR>          nbandroid
+06/21/2016  12:43 PM    <DIR>          private
+07/12/2016  01:53 PM               801 proguard-project.txt
+07/11/2016  08:21 AM    <DIR>          proguard_logs
+11/01/2016  08:33 AM               562 project.properties
+07/04/2016  12:43 PM    <DIR>          res
+08/21/2016  08:09 AM             2,228 Saeed.jks
+07/11/2016  08:20 AM             2,198 Saeed.jks1
+11/01/2016  07:43 AM    <DIR>          src
+11/13/2016  02:00 PM                 0 text.txt
+              10 File(s)         13,784 bytes
+              13 Dir(s)   6,129,856,512 bytes free
