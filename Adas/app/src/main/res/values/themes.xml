@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="mirshamsTheme"
+           parent="@android:style/Theme.Holo.Light"
+    >
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <!--item name="android:buttonStyle">@style/MyButton</item-->
+        <item name="android:alertDialogTheme">@style/AlertDialogCustom</item>        
+        <item name="android:editTextStyle">@style/App_EditTextStyle</item>
+        <item name="android:textViewStyle">@style/App_TextViewStyle</item>
+        <item name="android:spinnerStyle">@style/App_SpinnerStyle</item>
+        <item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/spinnerDropDownItemStyle</item>
+        <item name="android:actionOverflowButtonStyle">@style/OverFlow</item>
+        <item name="android:buttonStyle">@style/MyButton</item>
+    </style>
+    <!-- the theme applied to the application or activity -->
+    
+    <!--style name="CustomActionBarTheme"
+           parent="@android:style/Theme.Holo.Light.DarkActionBar">
+    </style-->
+    <style name="OverFlow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/mobilemenu</item>
+    </style>
+    <!-- ActionBar styles -->
+    <style name="MyActionBar"
+           parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/screen_background_light</item>
+    </style>
+    
+    <!-- Button styles -->
+    <style name="MyButton" >
+        <!--item name="android:background">@drawable/button_image</item-->
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmallInverse</item>
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        
+    </style>
+    <!--alert dialog Button styles -->
+    <style name="AlertDialogCustom" parent="@android:style/Theme.Holo">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+
+        <!-- Our customisation -->
+        <!--item name="android:windowTitleStyle">@style/DialogWindowTitle.Sphinx</item>
+        <item name="android:textColorPrimary">@android:color/holo_orange_light</item>
+        <item name="android:textColorAlertDialogListItem">@android:color/holo_orange_light</item-->
+        <!--item name="android:textAppearanceMedium">@style/TextAppearance.Sphinx.Medium</item-->
+        <!--item name="android:borderlessButtonStyle">@style/Widget.Sphinx.Button.Borderless.Small</item-->
+        <!--item name="android:buttonBarStyle">@style/Sphinx.ButtonBar.AlertDialog</item-->
+    </style>
+    
+    <!--EditText styles -->
+    <style name="App_EditTextStyle" parent="@android:style/Widget.EditText">
+        <item name="android:background">@drawable/layout_edit_text</item>
+        <!--item name="android:textColor">#10AAA0</item-->
+        <item name="android:layout_height">45dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+    <style name="App_SpinnerStyle" parent="@android:style/Widget.Spinner">
+        <item name="android:background">@drawable/layout_edit_text</item>
+        <!--item name="android:textColor">#10AA10</item-->
+        <item name="android:layout_height">45dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+    <style name="App_TextViewStyle" parent="@android:style/Widget.TextView">
+        <!--item name="android:background">@drawable/layout_edit_text</item-->
+        <!--item name="android:textColor">#10AAA0</item-->
+        <!--item name="android:layout_height">45dp</item-->
+    </style>
+    
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#10AA10</item>
+        <item name="android:background">#FCFDFD</item>
+
+  </style>
+
+  <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#10AA10</item>
+        <!--item name="android:background">@drawable/layout_spinner_item</item-->
+        <item name="android:gravity">center_vertical</item>
+  </style>
+</resources>
+
+
+

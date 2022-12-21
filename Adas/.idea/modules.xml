@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Adas.iml" filepath="$PROJECT_DIR$/.idea/Adas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Adas.iml" filepath="$PROJECT_DIR$/Adas.iml" />
     </modules>
   </component>
 </project>

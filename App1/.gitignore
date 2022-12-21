@@ -1,0 +1,8 @@
+// Generated code from Butter Knife. Do not modify!
+package com.simadanesh.bundlemanagement;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.Injector;
+
+pu

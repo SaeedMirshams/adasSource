@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="E:\GitControlledSources\adasSource\Adas\app\libs\adad-client-3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="cd5ffc33024a49c9003d549c180f4f16a1011f8f">
+        <dex dex="E:\GitControlledSources\adasSource\Adas\app\build\intermediates\pre-dexed\debug\adad-client-3.1_44868b552b1816c53ad6a3cbf4d242fead1bc402.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\GitControlledSources\adasSource\Adas\app\libs\android-support-v13.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0a0cf96dabecd7b65a3638a229e7bdb42e6b0a77">
+        <dex dex="E:\GitControlledSources\adasSource\Adas\app\build\intermediates\pre-dexed\debug\android-support-v13_3475879b7c7bf966987d417fddd6d1f052846a66.jar" />
+    </item>
+
+</items>
